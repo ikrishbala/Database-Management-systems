@@ -1,0 +1,58 @@
+mysql> create database office;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use office;
+Database changed
+mysql> create table dept(Empname char(20) NOT NULL UNIQUE, Empid int(3), Empsal int(6) NOT NULL UNIQUE, primary key(Empid));
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> desc dept;
++---------+----------+------+-----+---------+-------+
+| Field   | Type     | Null | Key | Default | Extra |
++---------+----------+------+-----+---------+-------+
+| Empname | char(20) | NO   | UNI | NULL    |       |
+| Empid   | int(3)   | NO   | PRI | 0       |       |
+| Empsal  | int(6)   | NO   | UNI | NULL    |       |
++---------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into dept value('Umesh', 132, 50000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept value('Arjun', 176, 80000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept value('Poojith', 154, 100000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dept value('Sanjana', 189, 1200000);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create view dept_view as select Empname,Empsal from dept;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select *from dept_view;
++---------+---------+
+| Empname | Empsal  |
++---------+---------+
+| Umesh   |   50000 |
+| Poojith |  100000 |
+| Arjun   |   80000 |
+| Sanjana | 1200000 |
++---------+---------+
+4 rows in set (0.02 sec)
+
+mysql> create index indno on dept(Empname);
+Query OK, 0 rows affected (0.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> show index from dept;
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| dept  |          0 | PRIMARY  |            1 | Empid       | A         |           2 |     NULL | NULL   |      | BTREE      |         |               |
+| dept  |          0 | Empname  |            1 | Empname     | A         |           2 |     NULL | NULL   |      | BTREE      |         |               |
+| dept  |          0 | Empsal   |            1 | Empsal      | A         |           2 |     NULL | NULL   |      | BTREE      |         |               |
+| dept  |          1 | indno    |            1 | Empname     | A         |           4 |     NULL | NULL   |      | BTREE      |         |               |
++-------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.01 sec)
