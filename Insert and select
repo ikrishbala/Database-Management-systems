@@ -1,0 +1,51 @@
+mysql> create database market;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use market;
+Database changed
+mysql> create table shop(It_Nm char(25) NOT NULL UNIQUE, It_id int(10), cost int(5) NOT NULL UNIQUE, primary key(It_id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc shop;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| It_Nm | char(25) | NO   | UNI | NULL    |       |
+| It_id | int(10)  | NO   | PRI | 0       |       |
+| cost  | int(5)   | NO   | UNI | NULL    |       |
++-------+----------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> insert into shop values('Apple', 123454, 45);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into shop value('Mango', 123465, 80);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into shop value('Dragon_fruit', 123478, 150);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into shop values('Pomo', 123490, 70);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from shop;
++--------------+--------+------+
+| It_Nm        | It_id  | cost |
++--------------+--------+------+
+| Apple        | 123454 |   45 |
+| Mango        | 123465 |   80 |
+| Dragon_fruit | 123478 |  150 |
+| Pomo         | 123490 |   70 |
++--------------+--------+------+
+4 rows in set (0.01 sec)
+
+mysql> select cost from shop;
++------+
+| cost |
++------+
+|   45 |
+|   70 |
+|   80 |
+|  150 |
++------+
+4 rows in set (0.00 sec)
