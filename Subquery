@@ -1,0 +1,100 @@
+mysql> create database tble;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use tble;
+Database changed
+mysql> create table info(Name char(20) NOT NULL UNIQUE, Roll int(4), Branch char(5) NOT NULL, Native char(15) NOT NULL, primary key(Roll));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc info;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| Name   | char(20) | NO   | UNI | NULL    |       |
+| Roll   | int(4)   | NO   | PRI | 0       |       |
+| Branch | char(5)  | NO   |     | NULL    |       |
+| Native | char(15) | NO   |     | NULL    |       |
++--------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into info value('Harshith', 123, 'CSE', 'Tirupati');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into info value('Koushik', 254, 'ECE', 'Nellore');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Jeevan', 124, 'AL&DS', 'Kothagudem');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into info value('Soumil', 452, 'BME', 'Warangal');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Jegan', 196, 'IT', 'Tiruvannamalai');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Shiva', 876, 'MECH', 'Kanyakumari');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> select *from info;
++----------+------+--------+----------------+
+| Name     | Roll | Branch | Native         |
++----------+------+--------+----------------+
+| Harshith |  123 | CSE    | Tirupati       |
+| Jeevan   |  124 | AL&DS  | Kothagudem     |
+| Jegan    |  196 | IT     | Tiruvannamalai |
+| Koushik  |  254 | ECE    | Nellore        |
+| Soumil   |  452 | BME    | Warangal       |
+| Shiva    |  876 | MECH   | Kanyakumari    |
++----------+------+--------+----------------+
+6 rows in set (0.00 sec)
+mysql> create table form(Name char(20) NOT NULL, Roll int(4), section char(1) NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+mysql> desc form;
++---------+----------+------+-----+---------+-------+
+| Field   | Type     | Null | Key | Default | Extra |
++---------+----------+------+-----+---------+-------+
+| Name    | char(20) | NO   |     | NULL    |       |
+| Roll    | int(4)   | YES  |     | NULL    |       |
+| section | char(1)  | NO   |     | NULL    |       |
++---------+----------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into form value('Harshith',123,'A');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into form value('Jeevan',124,'D');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> insert into form value('Soumil',452,'E');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into form value('Koushik',254,'D');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into form value('Jegan',196,'E');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into form value('Shiva',876,'D');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from form;
++----------+------+---------+
+| Name     | Roll | section |
++----------+------+---------+
+| Harshith |  123 | A       |
+| Jeevan   |  124 | D       |
+| Soumil   |  452 | E       |
+| Koushik  |  254 | D       |
+| Jegan    |  196 | E       |
+| Shiva    |  876 | D       |
++----------+------+---------+
+6 rows in set (0.00 sec)
+mysql> select Name,Branch,Native from info where Roll IN(select Roll from form where Section='D');
++---------+--------+-------------+
+| Name    | Branch | Native      |
++---------+--------+-------------+
+| Jeevan  | AL&DS  | Kothagudem  |
+| Koushik | ECE    | Nellore     |
+| Shiva   | MECH   | Kanyakumari |
++---------+--------+-------------+
+3 rows in set (0.01 sec)
