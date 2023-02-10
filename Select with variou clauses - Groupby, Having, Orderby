@@ -1,0 +1,73 @@
+mysql> create database marklist;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use marklist;
+Database changed
+mysql> create database tble;
+Query OK, 1 row affected (0.00 sec)
+mysql> use tble;
+Database changed
+mysql> create table info(Name char(20) NOT NULL UNIQUE, Age int(3) NOT NULL, Occupation char(15) NOT NULL, id int(7), primary key(id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc info;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| Name       | char(20) | NO   | UNI | NULL    |       |
+| Age        | int(3)   | NO   |     | NULL    |       |
+| Occupation | char(15) | NO   |     | NULL    |       |
+| id         | int(7)   | NO   | PRI | 0       |       |
++------------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into info value('Harsha_vardhan', 25, 'Lawyer', 112346);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Rajesh', 30, 'Police', 122346);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Ramayya', 42, 'Carpenter', 137746);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Devarshith', 19, 'Student', 187096);
+Query OK, 1 row affected (0.01 sec)
+mysql> select *from info;
++----------------+-----+------------+--------+
+| Name           | Age | Occupation | id     |
++----------------+-----+------------+--------+
+| Harsha_vardhan |  25 | Lawyer     | 112346 |
+| Rajesh         |  30 | Police     | 122346 |
+| Ramayya        |  42 | Carpenter  | 137746 |
+| Devarshith     |  19 | Student    | 187096 |
++----------------+-----+------------+--------+
+4 rows in set (0.00 sec)
+mysql> select Name, AVG(Age) from info group by Name;
++----------------+----------+
+| Name           | AVG(Age) |
++----------------+----------+
+| Devarshith     |  19.0000 |
+| Harsha_vardhan |  25.0000 |
+| Rajesh         |  30.0000 |
+| Ramayya        |  42.0000 |
++----------------+----------+
+4 rows in set (0.01 sec)
+mysql> select Name, AVG(Age) from info group by Name having Name <>'Rajesh';
++----------------+----------+
+| Name           | AVG(Age) |
++----------------+----------+
+| Devarshith     |  19.0000 |
+| Harsha_vardhan |  25.0000 |
+| Ramayya        |  42.0000 |
++----------------+----------+
+3 rows in set (0.00 sec)
+mysql> select *from info order by Age DESC, id ASC;
++----------------+-----+------------+--------+
+| Name           | Age | Occupation | id     |
++----------------+-----+------------+--------+
+| Ramayya        |  42 | Carpenter  | 137746 |
+| Rajesh         |  30 | Police     | 122346 |
+| Harsha_vardhan |  25 | Lawyer     | 112346 |
+| Devarshith     |  19 | Student    | 187096 |
++----------------+-----+------------+--------+
+4 rows in set (0.00 sec)
