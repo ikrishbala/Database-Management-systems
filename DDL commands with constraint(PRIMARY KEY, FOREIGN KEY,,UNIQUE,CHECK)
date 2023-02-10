@@ -1,0 +1,64 @@
+mysql> create database School;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use school;
+Database changed
+mysql> create table student(std_ID int(10),std_name varchar(20),std_no int(10));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| std_ID   | int(10)     | YES  |     | NULL    |       |
+| std_name | varchar(20) | YES  |     | NULL    |       |
+| std_no   | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> ALTER TABLE student ADD PRIMARY KEY(std_ID);
+Query OK, 0 rows affected (0.16 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| std_ID   | int(10)     | NO   | PRI | 0       |       |
+| std_name | varchar(20) | YES  |     | NULL    |       |
+| std_no   | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> create table course(std_ID int(10),subject_name varchar(20),course_ID int(10));
+Query OK, 0 rows affected (0.09 sec)
+
+mysql> ALTER TABLE course ADD FOREIGN KEY (std_ID) REFERENCES student(std_ID);
+Query OK, 0 rows affected (0.17 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc course;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| std_ID       | int(10)     | YES  | MUL | NULL    |       |
+| subject_name | varchar(20) | YES  |     | NULL    |       |
+| course_ID    | int(10)     | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.03 sec)
+
+
+mysql> ALTER TABLE student ADD UNIQUE(std_name);
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc student;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| std_ID   | int(10)     | NO   | PRI | 0       |       |
+| std_name | varchar(20) | YES  | UNI | NULL    |       |
+| std_no   | int(10)     | YES  |     | NULL    |       |
+| age      | int(10)     | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+4 rows in set (0.02 sec)
