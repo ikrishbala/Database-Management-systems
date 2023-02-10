@@ -1,0 +1,114 @@
+mysql> create database market;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use market;
+Database changed
+mysql> create table orders(Orderid int(5), Costuid int(4) NOT NULL UNIQUE, Orderdate date NOT NULL);
+Query OK, 0 rows affected (0.02 sec)
+mysql> desc orders;
++-----------+--------+------+-----+---------+-------+
+| Field     | Type   | Null | Key | Default | Extra |
++-----------+--------+------+-----+---------+-------+
+| Orderid   | int(5) | YES  |     | NULL    |       |
+| Costuid   | int(4) | NO   | PRI | NULL    |       |
+| Orderdate | date   | NO   |     | NULL    |       |
++-----------+--------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> drop database market;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> create database market;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> use market;
+Database changed
+mysql>  create table orders(Orderid int(5), Costuid int(4) NOT NULL UNIQUE, Orderdate date NOT NULL, primary key(Orderid));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc orders;
++-----------+--------+------+-----+---------+-------+
+| Field     | Type   | Null | Key | Default | Extra |
++-----------+--------+------+-----+---------+-------+
+| Orderid   | int(5) | NO   | PRI | 0       |       |
+| Costuid   | int(4) | NO   | UNI | NULL    |       |
+| Orderdate | date   | NO   |     | NULL    |       |
++-----------+--------+------+-----+---------+-------+
+3 rows in set (0.02 sec)
+
+mysql> insert into orders value(10308,2,1996-09-18);
+ERROR 1292 (22007): Incorrect date value: '1969' for column 'Orderdate' at row 1
+mysql> insert into orders value(10308,2,'1996-09-18');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value(10309,37,'1996-09-19');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into orders value(10310,77,'1996-09-20');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from orders;
++---------+---------+------------+
+| Orderid | Costuid | Orderdate  |
++---------+---------+------------+
+|   10308 |       2 | 1996-09-18 |
+|   10309 |      37 | 1996-09-19 |
+|   10310 |      77 | 1996-09-20 |
++---------+---------+------------+
+3 rows in set (0.00 sec)
+mysql> create table costumers(costuid int(3), costumername char(20) NOT NULL UNIQUE,contname char(20) NOT NULL UNIQUE, country char(15) NOT NULL,primary key(costuid));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc costumers;
++--------------+----------+------+-----+---------+-------+
+| Field        | Type     | Null | Key | Default | Extra |
++--------------+----------+------+-----+---------+-------+
+| costuid      | int(3)   | NO   | PRI | 0       |       |
+| costumername | char(20) | NO   | UNI | NULL    |       |
+| contname     | char(20) | NO   | UNI | NULL    |       |
+| country      | char(15) | NO   |     | NULL    |       |
++--------------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into costumers value(1,'Alfred_Futterkiste', 'Maria_Anders','Germany');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into costumers value(2,'Ana_helados', 'Ana_trujio',',Mexico');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into costumers value(3,'Antonio_Taqueria', 'Antonio_Moreno',',Mexico');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into costumers value(7,'Jim_hopper', 'Jimmy', 'Russia');
+Query OK, 1 row affected (0.02 sec)
+mysql> select orders.Orderid,costumers.costumername,orders.orderdate,costumers.country from orders inner join costumers on orders.costuid=costumers.costuid;
++---------+------------------+------------+---------+
+| Orderid | costumername     | orderdate  | country |
++---------+------------------+------------+---------+
+|   10308 | Ana_helados      | 1996-09-18 | ,Mexico |
+|   10310 | Antonio_Taqueria | 1996-09-20 | ,Mexico |
+|   10311 | Jim_hopper       | 1996-10-13 | Russia  |
++---------+------------------+------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> select orders.Orderid,costumers.costumername,orders.orderdate,costumers.country from orders left join costumers on orders.costuid=costumers.costuid;
++---------+------------------+------------+---------+
+| Orderid | costumername     | orderdate  | country |
++---------+------------------+------------+---------+
+|   10308 | Ana_helados      | 1996-09-18 | ,Mexico |
+|   10309 | NULL             | 1996-09-19 | NULL    |
+|   10310 | Antonio_Taqueria | 1996-09-20 | ,Mexico |
+|   10311 | Jim_hopper       | 1996-10-13 | Russia  |
++---------+------------------+------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> select orders.Orderid,costumers.costumername,orders.orderdate,costumers.country from orders right join costumers on orders.costuid=costumers.costuid;
++---------+--------------------+------------+---------+
+| Orderid | costumername       | orderdate  | country |
++---------+--------------------+------------+---------+
+|    NULL | Alfred_Futterkiste | NULL       | Germany |
+|   10308 | Ana_helados        | 1996-09-18 | ,Mexico |
+|   10310 | Antonio_Taqueria   | 1996-09-20 | ,Mexico |
+|   10311 | Jim_hopper         | 1996-10-13 | Russia  |
++---------+--------------------+------------+---------+
+4 rows in set (0.00 sec)
