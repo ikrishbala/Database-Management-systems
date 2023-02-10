@@ -1,0 +1,71 @@
+mysql> create database pups;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use pups;
+Database changed
+mysql> create table dogg(Breed char(20) NOT NULL UNIQUE, Br_id int(5), Origin char(25) NOT NULL,
+    -> Type char(14) NOT NULL UNIQUE, primary key(Br_id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc pups;
+ERROR 1146 (42S02): Table 'pups.pups' doesn't exist
+mysql> desc dogg;
++--------+----------+------+-----+---------+-------+
+| Field  | Type     | Null | Key | Default | Extra |
++--------+----------+------+-----+---------+-------+
+| Breed  | char(20) | NO   | UNI | NULL    |       |
+| Br_id  | int(5)   | NO   | PRI | 0       |       |
+| Origin | char(25) | NO   |     | NULL    |       |
+| Type   | char(14) | NO   | UNI | NULL    |       |
++--------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into dogg value('Golden_Retriever', 12345, 'Scotland', 'Friendly');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dogg value('German_sheperd', 13245, 'Germany', 'Guarding');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dogg value('Basset_Hound', 13345, 'Saudi_Arabia', 'Lazy');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into dogg value('Pomeranian', 12145, 'South_korea', 'Miniature');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from dogg;
++------------------+-------+--------------+-----------+
+| Breed            | Br_id | Origin       | Type      |
++------------------+-------+--------------+-----------+
+| Pomeranian       | 12145 | South_korea  | Miniature |
+| Golden_Retriever | 12345 | Scotland     | Friendly  |
+| German_sheperd   | 13245 | Germany      | Guarding  |
+| Basset_Hound     | 13345 | Saudi_Arabia | Lazy      |
++------------------+-------+--------------+-----------+
+4 rows in set (0.00 sec)
+mysql> update dogg set Breed='Maltese' where Br_id=12145;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select *from dogg;
++------------------+-------+--------------+-----------+
+| Breed            | Br_id | Origin       | Type      |
++------------------+-------+--------------+-----------+
+| Maltese          | 12145 | South_korea  | Miniature |
+| Golden_Retriever | 12345 | Scotland     | Friendly  |
+| German_sheperd   | 13245 | Germany      | Guarding  |
+| Basset_Hound     | 13345 | Saudi_Arabia | Lazy      |
++------------------+-------+--------------+-----------+
+4 rows in set (0.01 sec)
+
+mysql> delete from dogg where Br_id=13345;
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select *from dogg;
++------------------+-------+-------------+-----------+
+| Breed            | Br_id | Origin      | Type      |
++------------------+-------+-------------+-----------+
+| Maltese          | 12145 | South_korea | Miniature |
+| Golden_Retriever | 12345 | Scotland    | Friendly  |
+| German_sheperd   | 13245 | Germany     | Guarding  |
++------------------+-------+-------------+-----------+
+3 rows in set (0.00 sec)
