@@ -1,0 +1,102 @@
+mysql> create database marklist;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use marklist;
+Database changed
+mysql> create database tble;
+Query OK, 1 row affected (0.00 sec)
+mysql> use tble;
+Database changed
+mysql> create table info(Name char(20) NOT NULL UNIQUE, Age int(3) NOT NULL, Occupation char(15) NOT NULL, id int(7), primary key(id));
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> desc info;
++------------+----------+------+-----+---------+-------+
+| Field      | Type     | Null | Key | Default | Extra |
++------------+----------+------+-----+---------+-------+
+| Name       | char(20) | NO   | UNI | NULL    |       |
+| Age        | int(3)   | NO   |     | NULL    |       |
+| Occupation | char(15) | NO   |     | NULL    |       |
+| id         | int(7)   | NO   | PRI | 0       |       |
++------------+----------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> insert into info value('Harsha_vardhan', 25, 'Lawyer', 112346);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Rajesh', 30, 'Police', 122346);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Ramayya', 42, 'Carpenter', 137746);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into info value('Devarshith', 19, 'Student', 187096);
+Query OK, 1 row affected (0.01 sec)
+mysql> select *from info;
++----------------+-----+------------+--------+
+| Name           | Age | Occupation | id     |
++----------------+-----+------------+--------+
+| Harsha_vardhan |  25 | Lawyer     | 112346 |
+| Rajesh         |  30 | Police     | 122346 |
+| Ramayya        |  42 | Carpenter  | 137746 |
+| Devarshith     |  19 | Student    | 187096 |
++----------------+-----+------------+--------+
+4 rows in set (0.00 sec)
+mysql> select *from info where Age between 10 and 30;
++----------------+-----+------------+--------+
+| Name           | Age | Occupation | id     |
++----------------+-----+------------+--------+
+| Harsha_vardhan |  25 | Lawyer     | 112346 |
+| Rajesh         |  30 | Police     | 122346 |
+| Devarshith     |  19 | Student    | 187096 |
++----------------+-----+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select *from info where Occupation in ('Lawyer', 'Police', 'Carpenter');
++----------------+-----+------------+--------+
+| Name           | Age | Occupation | id     |
++----------------+-----+------------+--------+
+| Harsha_vardhan |  25 | Lawyer     | 112346 |
+| Rajesh         |  30 | Police     | 122346 |
+| Ramayya        |  42 | Carpenter  | 137746 |
++----------------+-----+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select MAX(Age) from info;
++----------+
+| MAX(Age) |
++----------+
+|       42 |
++----------+
+1 row in set (0.00 sec)
+
+mysql> select MIN(Age) from info;
++----------+
+| MIN(Age) |
++----------+
+|       19 |
++----------+
+1 row in set (0.00 sec)
+mysql> select AVG(Age)AS 'Average Age: ' from info;
++---------------+
+| Average Age:  |
++---------------+
+|       29.0000 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select SUM(Age)AS 'Sum of all Ages: ' from info;
++-------------------+
+| Sum of all Ages:  |
++-------------------+
+|               116 |
++-------------------+
+1 row in set (0.00 sec)
+
+mysql> select COUNT(Age)AS 'Total no.of elements: ' from info;
++------------------------+
+| Total no.of elements:  |
++------------------------+
+|                      4 |
++------------------------+
+1 row in set (0.00 sec)
